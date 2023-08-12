@@ -9,6 +9,17 @@ export const divide = (a: number, b: number) => {
 
     return a / b;
     }
+    
+export const concat = (a: string, b: string) => {
+    
+    if ((!a || a === '')) {
+        throw new Error("A is empty");
+    } else if (!b || b === '') {
+        throw new Error("B is empty");
+    }
+
+    return a.concat(b);
+}
 
 // @TODO try creating a method "concat" to concatenate two strings
 // it should take two string paramaters.
