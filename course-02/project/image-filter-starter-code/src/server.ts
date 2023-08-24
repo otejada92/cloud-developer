@@ -14,6 +14,10 @@ import * as url from "url";
   // Use the body parser middleware for post requests
   app.use(bodyParser.json());
 
+  app.get( "/", async ( req: Request, res: Response ) => {
+    return res.status(200).send("Welcome to image filter service");
+  } );
+
   // @TODO1 IMPLEMENT A RESTFUL ENDPOINT
   // GET /filteredimage?image_url={{URL}}
   // endpoint to filter an image from a public url.
@@ -54,7 +58,6 @@ import * as url from "url";
     });
 
   } );
-  
 
   // Start the Server
   app.listen( port, () => {
