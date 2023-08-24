@@ -35,14 +35,16 @@ import * as url from "url";
   // Root Endpoint
   // Displays a simple message to the user
   app.get( "/filteredimage", async ( req, res ) => {
-    let {image_url} = req.query;
-    let isValid = await validateUrl(image_url);
+
+    let url:string|any = req.query.image_url;
+
+    let isValid = await validateUrl(url);
 
     if (!isValid) {
-      res.status(400).send(`Invalid URL ${image_url}`);
+      res.status(400).send(`Invalid URL ${url}`);
     }
 
-    let filteredPath = await filterImageFromURL(image_url);
+    let filteredPath = await filterImageFromURL(url);
     res.status(200).sendFile(filteredPath, {}, (err) => {
       deleteLocalFiles([filteredPath])
     });
