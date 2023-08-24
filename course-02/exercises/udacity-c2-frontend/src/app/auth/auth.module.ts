@@ -15,6 +15,7 @@ import { ApiService } from '../api/api.service';
 const entryComponents = [AuthMenuUserComponent, AuthMenuButtonComponent, AuthLoginComponent, AuthRegisterComponent];
 const components = [...entryComponents];
 
+// @ts-ignore
 @NgModule({
   imports: [
     CommonModule,
@@ -23,7 +24,6 @@ const components = [...entryComponents];
     ReactiveFormsModule,
     ApiModule
   ],
-  entryComponents: entryComponents,
   declarations: components,
   exports: components,
   providers: []
