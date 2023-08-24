@@ -45,7 +45,7 @@ export async function deleteLocalFiles(files: Array<string>) {
 }
 
 // validate that url is an image
-export async function validateUrl(url: string): Promise<boolean> {
+export async function validateURLFormat(url :string): Promise<boolean> {
 
     if (!url) return false;
     return url.match("^http(s):\\/\\/[a-zA-z0-9.\\/]+\\.(jpg)$") !== null;

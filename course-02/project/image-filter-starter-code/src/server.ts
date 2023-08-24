@@ -1,6 +1,6 @@
-import express from 'express';
+import express, { Request, Response } from 'express';
 import bodyParser from 'body-parser';
-import {filterImageFromURL, deleteLocalFiles, validateUrl} from './util/util';
+import {filterImageFromURL, deleteLocalFiles, validateURLFormat} from './util/util';
 import * as url from "url";
 
 (async () => {
@@ -31,24 +31,27 @@ import * as url from "url";
   /**************************************************************************** */
 
   //! END @TODO1
-  
+
   // Root Endpoint
   // Displays a simple message to the user
-  app.get( "/filteredimage", async ( req, res ) => {
+  app.get( "/filteredimage", async ( req: Request, res: Response ) => {
 
-    let url:string|any = req.query.image_url;
-
-    let isValid = await validateUrl(url);
-
-    if (!isValid) {
-      res.status(400).send(`Invalid URL ${url}`);
+    if (typeof req.query.image_url !== "string") {
+      return res.status(400).send(`Query param 'url' has to be of type string`);
     }
 
-    let filteredPath = await filterImageFromURL(url);
+    let image_url:string = req.query.image_url;
+
+    let isURLValid :boolean = await validateURLFormat(image_url);
+
+    if (!isURLValid) {
+      return res.status(400).send(`Invalid URL ${image_url}`);
+    }
+
+    let filteredPath :string = await filterImageFromURL(image_url);
     res.status(200).sendFile(filteredPath, {}, (err) => {
       deleteLocalFiles([filteredPath])
     });
-
 
   } );
   
